@@ -1,109 +1,14 @@
-<!-- <header class="bg-gradient-to-r from-purple-300 to-indigo-300">
-    <div class="text-blue-700 font-bold italic">
-        <span>E-commerce</span>
-
-    </div>
-
-    <div class="flex space-x-2" role="toolbar">
-        <div class="btn-group me-3 flex" role="group">
-            <button type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold  hover:text-blue-700">Home</button>
-            <div class="btn-group" role="group">
-                <button  type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold  hover:text-blue-700" data-bs-toggle="dropdown">Categories <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="ml-2 h-4 w-4"
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </span></button>
-                  <ul class="mt-2 w-48 py-1 bg-white border border-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                    <ng-container *ngFor="let item of navigationList; let i=index;">
-                        <li class="text-center font-bold">{{item.category | titlecase}}</li>
-                        <li *ngFor="let subcategory of item.subcategories" [style.cursor]="'pointer'">
-                            <a class="" >{{subcategory | titlecase}}</a>
-                        </li>
-                        <li *ngIf="i !== navigationList.length - 1">
-                            <hr>
-                        </li>
-
-                    </ng-container>
-
-                  </ul>
-
-            </div>
-
-        </div>
-
-        <div class="btn-group me-2" role="group">
-
-        </div>
-
-    </div>
-</header> -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<header class="bg-gradient-to-r from-purple-300 to-indigo-300">
-    <div class="text-blue-700 font-bold italic">
+<header class="bg-gradient-to-r from-purple-300 to-indigo-300 my-shadow w-full h-full px-4 flex justify-between items-center">
+    <div routerLink="/home" class="text-blue-700 font-bold italic cursor-pointer">
         <span>E-commerce</span>
     </div>
 
     <div class="flex space-x-2" role="toolbar">
         <div class="btn-group me-3 flex" role="group">
             <button type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" (click)="toggleDropdown()">
-                Home
+                Show Categories
             </button>
             
             <!-- Categories Dropdown -->
@@ -120,7 +25,7 @@
                     <ng-container *ngFor="let item of navigationList; let i=index;">
                         <li class="text-center font-bold">{{item.category | titlecase}}</li>
                         <li *ngFor="let subcategory of item.subcategories" [style.cursor]="'pointer'">
-                            <a class="block px-4 py-2 hover:bg-gray-100">{{subcategory | titlecase}}</a>
+                            <a class="block px-4 py-2 hover:bg-gray-100" OpenProducts [category]="{id:0, 'category':item.category,'subcategory':subcategory}">{{subcategory | titlecase}}</a>
                         </li>
                         <li *ngIf="i !== navigationList.length - 1">
                             <hr>
@@ -132,8 +37,53 @@
         </div>
 
         <div class="btn-group me-2" role="group">
+            <button type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" data-bs-toggle="modal" data-bs-target="#generalmodal" (click)="openModal('login')">
+                Login
+            </button>
+            <button type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" data-bs-toggle="modal" data-bs-target="#generalmodal" (click)="openModal('register')">
+                Register
+            </button>
+            <button type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" >
+                Account
+            </button>
+            <button type="button" routerLink="/cart" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" >
+                Cart
+            </button>
+            <button type="button" routerLink="/orders" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" >
+                Orders
+            </button>
+            <button type="button" class="inline-flex items-center text-sm px-3 py-3 border-2 rounded-md border-blue-700 text-blue-700 font-semibold hover:text-blue-700" >
+                Logout
+            </button>
         </div>
     </div>
 </header>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="generalmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" #modalTitle></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ng-container #container></ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+  
 
 
